@@ -2,21 +2,288 @@
 <html lang="ky">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>TILATA INVITE</title>
-<style>
-body{margin:0;font-family:system-ui,sans-serif;background:#0a0a0f;color:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:20px}
-.box{max-width:400px}
-h1{color:#e5b53b;font-size:28px}
-a{display:inline-block;margin-top:20px;padding:14px 28px;background:#e5b53b;color:#000;text-decoration:none;border-radius:10px;font-weight:700}
-p{color:#9a9aae;font-size:14px;line-height:1.6}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="box">
-<h1>TILATA INVITE</h1>
-<p>Сайт жаңыртылууда. Толук версияны жүктөгөнгө чейин эски версияны ачыңыз.</p>
-<a href="tilata.html">Ачуу →</a>
+
+<header>
+  <div class="logo">TILATA<br>INVITE</div>
+  <div class="hbtns">
+    <button class="btn-rsvp" onclick="openRsvpModal()">📋 Катышуу</button>
+    <button class="btn-mbank" id="adminBtn" onclick="openAdminLogin()">MBank</button>
+    <button class="btn-create" onclick="startCreateFlow()">+ Түзүү</button>
+  </div>
+</header>
+
+<div class="step active" id="stepHome">
+  <div class="hero"><h1>TILATA INVITE</h1><p>Сиздин өзгөчө күнүңүзгө санарип чакыруу</p></div>
+  <div class="container">
+    <div class="search"><input type="text" id="searchInput" placeholder="Тойдун атын жазыңыз..." onkeyup="filterTemplates()"></div>
+    <div class="cat-scroll" id="catScroll"></div>
+    <div class="tier-scroll" id="tierScroll"></div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:22px;margin:20px 0 10px">Шаблондор</h2>
+    <div style="display:inline-block;background:var(--gold);color:#000;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;margin-bottom:10px" id="tplCount">0 шаблон</div>
+    <div class="tcards" id="templateList"></div>
+  </div>
 </div>
+
+<div class="step" id="stepForm">
+  <div class="hero"><h1 style="font-size:22px">Чакыруу түзүү</h1></div>
+  <div class="container">
+    <button class="btn outline" onclick="showStep('stepHome')">← Артка</button>
+    <div id="adminNoticeBox"></div>
+    <h3 style="color:var(--gold);font-family:'Playfair Display',serif;margin-top:15px;font-size:15px">📝 Негизги маалымат</h3>
+    <label>Тойдун түрү</label><select id="fType"></select>
+    <label>Кимдердин атынан</label><input type="text" id="fNames" placeholder="Эмирлан & Айгерим">
+    <label>Дата жана убакыт</label><input type="datetime-local" id="fDate">
+    <label>Жай</label><input type="text" id="fLoc" placeholder="Saltanat Palace">
+    <label>Дарек</label><input type="text" id="fAddr" placeholder="Бишкек, Матросов 260">
+    <label>Билдирүү</label><textarea id="fMsg" placeholder="Кош келиңиздер!"></textarea>
+    <h3 style="color:var(--gold);font-family:'Playfair Display',serif;margin-top:20px;font-size:15px">🎨 Фондун түсү</h3>
+    <div class="theme-grid" id="themeGrid">
+      <div class="theme-opt theme-1 active" data-theme="1" onclick="selectTheme(1)"></div>
+      <div class="theme-opt theme-2" data-theme="2" onclick="selectTheme(2)"></div>
+      <div class="theme-opt theme-3" data-theme="3" onclick="selectTheme(3)"></div>
+      <div class="theme-opt theme-4" data-theme="4" onclick="selectTheme(4)"></div>
+      <div class="theme-opt theme-5" data-theme="5" onclick="selectTheme(5)"></div>
+      <div class="theme-opt theme-6" data-theme="6" onclick="selectTheme(6)"></div>
+      <div class="theme-opt theme-7" data-theme="7" onclick="selectTheme(7)"></div>
+      <div class="theme-opt theme-8" data-theme="8" onclick="selectTheme(8)"></div>
+      <div class="theme-opt theme-9" data-theme="9" onclick="selectTheme(9)"></div>
+      <div class="theme-opt theme-10" data-theme="10" onclick="selectTheme(10)"></div>
+    </div>
+    <h3 style="color:var(--gold);font-family:'Playfair Display',serif;margin-top:20px;font-size:15px">✨ Сапат деңгээли</h3>
+    <div class="tier-box" id="tierBox">
+      <div class="tier-opt t1" data-tier="1" onclick="selectTier(1)"><div class="icon">🥉</div><div class="name">ЭКОНОМ</div><div class="price" id="tp1">490 сом</div></div>
+      <div class="tier-opt t2" data-tier="2" onclick="selectTier(2)"><div class="icon">🥈</div><div class="name">СТАНДАРТ</div><div class="price" id="tp2">690 сом</div></div>
+      <div class="tier-opt t3 active" data-tier="3" onclick="selectTier(3)"><div class="icon">🥇</div><div class="name">ПРЕМИУМ</div><div class="price" id="tp3">990 сом</div></div>
+      <div class="tier-opt t4" data-tier="4" onclick="selectTier(4)"><div class="icon">💎</div><div class="name">ЛЮКС</div><div class="price" id="tp4">1490 сом</div></div>
+    </div>
+    <h3 style="color:var(--gold);font-family:'Playfair Display',serif;margin-top:20px;font-size:15px">🎵 Музыка</h3>
+    <div class="info-box">💡 Телефонуңуздан MP3 файл тандаңыз. Ойнотуу үчүн ▶ басыңыз</div>
+    <label>Ыр аты</label><input type="text" id="fMusicName" placeholder="Мисалы: Кыргыз күүсү">
+    <label>Музыка файлы</label>
+    <label class="file-label" id="fMusicFileLabel" for="fMusicFile">📁 Файл тандоо — файл тандалган жок</label>
+    <input type="file" id="fMusicFile" accept="audio/*,.mp3,.m4a,.ogg,.wav" onchange="loadMusicFile(event)" style="display:none">
+    <div id="musicFileStatus" style="font-size:11px;color:var(--muted);margin-bottom:8px">Файл тандалган жок</div>
+    <button type="button" class="btn outline" id="testMusicBtn" onclick="testFormMusic()" style="font-size:12px;margin-top:4px">▶ Угуп көрүү</button>
+    <div id="testMusicStatus" style="font-size:11px;color:var(--muted);margin:6px 0 10px;text-align:center"></div>
+    <h3 style="color:var(--gold);font-family:'Playfair Display',serif;margin-top:20px;font-size:15px">🕐 Тойдун программасы</h3>
+    <div id="schFormContainer"></div>
+    <button class="btn outline" onclick="addSchRow('','')" style="font-size:12px">+ Убакыт кошуу</button>
+    <h3 style="color:var(--gold);font-family:'Playfair Display',serif;margin-top:20px;font-size:15px">🗺️ Карта</h3>
+    <label>Дарек жазыңыз</label>
+    <input type="text" id="fMap" placeholder="Мисалы: Бишкек, Матросов 260">
+    <label>Сүрөт</label>
+    <input type="file" id="fPhoto" accept="image/*" onchange="loadPhoto(event)">
+    <button class="btn" onclick="goToPreview()" style="margin-top:15px">👁️ Текшерүү</button>
+  </div>
+</div>
+
+<div class="step" id="stepPreview">
+  <div class="hero"><h1 style="font-size:22px">👁️ Текшерүү</h1></div>
+  <div class="container">
+    <div style="background:rgba(0,166,81,.15);border:2px solid var(--green);border-radius:12px;padding:16px;margin-bottom:15px;text-align:center"><h3 style="color:var(--green);font-family:'Playfair Display',serif;font-size:16px;margin-bottom:8px">✅ Чакырууңуз даяр!</h3></div>
+    <div id="adminFreeBox"></div>
+    <div class="inv-wrap" id="previewWrap"><div class="inv-card">
+      <div class="inv-top" id="prvTop">Үйлөнүү тою</div>
+      <div class="inv-heart">🤍</div>
+      <img class="inv-photo" id="prvPhoto" src="">
+      <div class="inv-names" id="prvNames">Аты & Аты</div>
+      <div class="inv-date" id="prvDate"></div>
+      <div class="countdown">
+        <div class="cd-item"><div class="cd-num" id="prvD">0</div><div class="cd-lbl">күн</div></div>
+        <div class="cd-item"><div class="cd-num" id="prvH">0</div><div class="cd-lbl">саат</div></div>
+        <div class="cd-item"><div class="cd-num" id="prvM">0</div><div class="cd-lbl">мүн</div></div>
+        <div class="cd-item"><div class="cd-num" id="prvS">0</div><div class="cd-lbl">сек</div></div>
+      </div>
+      <div class="inv-msg" id="prvMsg"></div>
+      <div class="inv-loc" id="prvLoc"></div>
+      <div class="inv-addr" id="prvAddr"></div>
+    </div></div>
+    <div id="prvMusicDisplay"></div>
+    <div id="prvSchDisplay"></div>
+    <div id="prvMapDisplay"></div>
+    <button class="btn green" id="previewNextBtn" onclick="previewNextStep()">💳 Төлөмгө өтүү</button>
+    <button class="btn outline" onclick="showStep('stepForm')">✏️ Өзгөртүү</button>
+  </div>
+</div>
+
+<div class="step" id="stepPayment">
+  <div class="hero"><h1 style="font-size:22px">💳 Төлөм</h1></div>
+  <div class="container">
+    <button class="btn outline" onclick="showStep('stepPreview')">← Артка</button>
+    <div style="text-align:center;margin-top:15px;padding:20px;background:var(--card);border-radius:12px">
+      <h3 style="color:var(--green);margin-bottom:10px">Төлөнүүчү сумма</h3>
+      <div style="font-size:32px;font-weight:700;color:var(--gold)" id="payPrice">0</div>
+      <div style="font-size:20px;color:var(--green);font-weight:700;margin-top:10px" id="mbankNum">+996 556 652 652</div>
+    </div>
+    <button class="btn green" style="margin-top:15px" onclick="confirmPaid()">✅ Мен төлөдүм</button>
+  </div>
+</div>
+
+<div class="step" id="stepDone">
+  <div class="hero"><div style="font-size:60px">🎉</div><h1 style="font-size:22px">Чакырууңуз даяр!</h1></div>
+  <div class="container">
+    <div class="inv-wrap" id="finalWrap"><div class="inv-card" id="finalCard">
+      <div class="inv-top" id="fTop">Үйлөнүү тою</div>
+      <div class="inv-heart">🤍</div>
+      <img class="inv-photo" id="fPhotoImg" src="">
+      <div class="inv-names" id="fNames2">Аты & Аты</div>
+      <div class="inv-date" id="fDate2"></div>
+      <div class="countdown">
+        <div class="cd-item"><div class="cd-num" id="pvD">0</div><div class="cd-lbl">күн</div></div>
+        <div class="cd-item"><div class="cd-num" id="pvH">0</div><div class="cd-lbl">саат</div></div>
+        <div class="cd-item"><div class="cd-num" id="pvM">0</div><div class="cd-lbl">мүн</div></div>
+        <div class="cd-item"><div class="cd-num" id="pvS">0</div><div class="cd-lbl">сек</div></div>
+      </div>
+      <div class="inv-msg" id="fMsg2"></div>
+      <div class="inv-loc" id="fLoc2"></div>
+      <div class="inv-addr" id="fAddr2"></div>
+    </div></div>
+    <div id="musicDisplay"></div>
+    <div id="schDisplay"></div>
+    <div id="mapDisplay"></div>
+    <div id="checkLinkBox"></div>
+    <div id="shareBox" style="display:none" class="check-box">
+      <p style="color:var(--green);font-weight:700;margin-bottom:8px">🔗 Чакыруу шилтемеси (конокторго жөнөтүңүз)</p>
+      <div class="link-box" id="shareLinkText"></div>
+      <button class="btn green" style="font-size:12px;margin-top:8px" onclick="copyShareLink()">📋 Шилтемени көчүрүү</button>
+      <button class="btn" style="font-size:12px;background:#25D366;color:#fff" onclick="shareWhatsApp()">💚 WhatsApp аркылуу жөнөтүү</button>
+      <button class="btn outline" style="font-size:12px" onclick="downloadInviteHtml()">⬇️ HTML файл жүктөө</button>
+    </div>
+    <div id="myInvitesBox" style="margin:15px 0"></div>
+    <div class="rsvp-box">
+      <h3>📋 Катышууңузду ырастаңыз</h3>
+      <label>Атыңыз</label>
+      <input type="text" id="rsvpName" placeholder="Атыңыз">
+      <label>Канча адам келесиз?</label>
+      <input type="number" id="rsvpGuests" value="1" min="1">
+      <button class="rsvp-btn rsvp-yes" onclick="submitRsvp('yes')">✅ Барам</button>
+      <button class="rsvp-btn rsvp-maybe" onclick="submitRsvp('maybe')">⏳ Билбейм</button>
+      <button class="rsvp-btn rsvp-no" onclick="submitRsvp('no')">❌ Бара албайм</button>
+      <div id="rsvpStatus"></div>
+      <div class="rsvp-list" id="rsvpList"></div>
+    </div>
+    <div class="wishes-box">
+      <h3>💬 Каалоо-тилектер</h3>
+      <label>Атыңыз</label>
+      <input type="text" id="wishName" placeholder="Атыңыз">
+      <label>Тилегиңиз</label>
+      <textarea id="wishText" placeholder="Жаш жубайларга тилегиңиз..."></textarea>
+      <button class="btn green" onclick="submitWish()">💌 Жиберүү</button>
+      <div id="wishesList" style="margin-top:12px"></div>
+    </div>
+    <button class="btn outline" onclick="showStep('stepHome')">🏠 Башкы бетке</button>
+  </div>
+</div>
+
+<div class="modal" id="rsvpModal"><div class="mbox">
+  <button class="close-x" onclick="closeModal('rsvpModal')">×</button>
+  <h3>📋 Катышууңузду ырастаңыз</h3>
+  <div id="rsvpModalInfo" style="background:var(--bg);border-radius:8px;padding:12px;margin-bottom:12px;text-align:center;font-size:13px"></div>
+  <label>Атыңыз</label><input type="text" id="rsvpModalName" placeholder="Атыңыз">
+  <label>Канча адам?</label><input type="number" id="rsvpModalGuests" value="1" min="1">
+  <button class="rsvp-btn rsvp-yes" onclick="submitRsvpModal('yes')">✅ Барам</button>
+  <button class="rsvp-btn rsvp-maybe" onclick="submitRsvpModal('maybe')">⏳ Билбейм</button>
+  <button class="rsvp-btn rsvp-no" onclick="submitRsvpModal('no')">❌ Бара албайм</button>
+  <div id="rsvpModalStatus" style="text-align:center;margin-top:10px"></div>
+</div></div>
+
+<div class="preview-modal" id="previewModal">
+  <div class="preview-content">
+    <button class="preview-close" onclick="closePreview()">×</button>
+    <img id="previewImg" src="">
+    <div class="overlay"></div>
+    <div class="top-text" id="previewTop">ҮЙЛӨНҮҮ ТОЮ</div>
+    <div class="center-text">
+      <div class="names" id="previewNames">Аты & Аты</div>
+      <div class="type-text" id="previewType">ҮЙЛӨНҮҮ ТОЮНА ЧАКЫРУУ</div>
+    </div>
+    <button class="preview-select-btn" onclick="selectFromPreview()">✨ Ушул үлгүнү тандоо</button>
+    <button class="preview-music-btn" id="previewMusicBtn" onclick="togglePreviewMusic()">▶ Музыканы ойнотуу</button>
+  </div>
+</div>
+
+<div class="modal" id="adminLoginModal"><div class="mbox">
+  <button class="close-x" onclick="closeModal('adminLoginModal')">×</button>
+  <h3>🔑 Админ кирүү</h3>
+  <p style="color:var(--muted);font-size:12px;text-align:center;margin-bottom:15px">Админ катары кирсеңиз — төлөмсүз чакыруу</p>
+  <input type="password" id="adminPass" placeholder="Сырсөз">
+  <button class="btn" onclick="checkAdmin()">Кирүү</button>
+  <button class="btn outline" onclick="closeModal('adminLoginModal')">← Артка</button>
+</div></div>
+
+<div class="modal" id="adminPanelModal"><div class="mbox" style="max-width:520px">
+  <button class="close-x" onclick="closeModal('adminPanelModal')">×</button>
+  <h3>⚙️ Админ панели</h3>
+  <div class="tabs">
+    <div class="tab active" onclick="adminTab('settings')">⚙️</div>
+    <div class="tab" onclick="adminTab('templates')">🖼️</div>
+    <div class="tab" onclick="adminTab('presets')">📦</div>
+    <div class="tab" onclick="adminTab('converter')">🔄</div>
+  </div>
+  <div class="tab-content active" id="tabSettings">
+    <div style="padding:10px;background:var(--bg);border-radius:8px;margin-bottom:8px;font-size:13px"><span style="color:var(--muted)">MBank:</span> <b id="showMbank" style="color:var(--gold)"></b></div>
+    <button class="btn outline" onclick="editMbank()" style="font-size:12px">✏️ MBank өзгөртүү</button>
+    <button class="btn outline" onclick="editTierPrices()" style="font-size:12px">💰 Бааларды өзгөртүү</button>
+    <button class="btn outline" onclick="editPassword()" style="font-size:12px">🔒 Сырсөздү өзгөртүү</button>
+    <button class="btn purple" onclick="closeModal('adminPanelModal');startAdminCreate()" style="font-size:12px">👑 Бекер чакыруу түзүү</button>
+    <button class="btn red" onclick="logoutAdmin()" style="font-size:12px">🚪 Админден чыгуу</button>
+    <button class="btn red" onclick="clearAll()" style="font-size:12px">🗑️ Баарын тазалоо</button>
+  </div>
+  <div class="tab-content" id="tabTemplates">
+    <button class="btn green" onclick="openTplForm()">+ Жаңы шаблон</button>
+    <div id="tplAdminList" style="margin-top:12px"></div>
+  </div>
+  <div class="tab-content" id="tabPresets">
+    <div class="info-box">💡 28 даяр шаблон</div>
+    <button class="btn purple" onclick="loadPresets()">📦 Топтомду жүктөө</button>
+    <button class="btn red" onclick="clearTemplates()" style="font-size:12px">🗑️ Шаблондорду өчүрүү</button>
+  </div>
+  <div class="tab-content" id="tabConverter">
+    <label class="file-label" for="convFile">📁 Сүрөт тандоо</label>
+    <input type="file" id="convFile" accept="image/*" onchange="loadConvFile(event)" style="display:none">
+    <img id="convPreview" class="img-preview" src="">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <button class="btn blue" onclick="convertTo('image/png','png')">→ PNG</button>
+      <button class="btn blue" onclick="convertTo('image/jpeg','jpg')">→ JPG</button>
+      <button class="btn blue" onclick="convertTo('image/webp','webp')">→ WebP</button>
+    </div>
+  </div>
+</div></div>
+
+<div class="modal" id="tplFormModal"><div class="mbox">
+  <button class="close-x" onclick="closeModal('tplFormModal')">×</button>
+  <h3>🖼️ Жаңы шаблон</h3>
+  <label>Аталышы</label><input type="text" id="tfTitle">
+  <label>Категория</label><select id="tfCat"></select>
+  <label>Сүрөттөмө</label><textarea id="tfDesc"></textarea>
+  <label>✨ Сапат деңгээли</label>
+  <select id="tfTier">
+    <option value="1">🥉 ЭКОНОМ</option>
+    <option value="2">🥈 СТАНДАРТ</option>
+    <option value="3" selected>🥇 ПРЕМИУМ</option>
+    <option value="4">💎 ЛЮКС</option>
+  </select>
+  <label>Баа (авто)</label><input type="number" id="tfPrice" placeholder="Авто">
+  <label>Эски баа</label><input type="number" id="tfOld">
+  <label>Белги</label><input type="text" id="tfBadge">
+  <label class="file-label" for="tfFile">📁 Сүрөт тандоо</label>
+  <input type="file" id="tfFile" accept="image/*" onchange="previewTplImg(event)" style="display:none">
+  <img id="tfImgPreview" class="img-preview" src="">
+  <label>Же сүрөт URL</label><input type="text" id="tfImgUrl" placeholder="https://...jpg">
+  <label>🎵 Музыка URL</label><input type="text" id="tfMusicUrl" placeholder="https://...mp3">
+  <button class="btn green" onclick="saveTplForm()">💾 Сактоо</button>
+  <button class="btn outline" onclick="closeModal('tplFormModal')">← Артка</button>
+</div></div>
+
+<div class="toast" id="toast"></div>
+<footer>© 2024 TILATA INVITE</footer>
+
+<script src="app.js"></script>
 </body>
 </html>
