@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <header>
   <div class="logo">TILATA<br>INVITE</div>
   <div class="hbtns">
@@ -17,7 +16,6 @@
     <button class="btn-create" onclick="startCreateFlow()">+ Түзүү</button>
   </div>
 </header>
-
 <div class="step active" id="stepHome">
   <div class="hero"><h1>TILATA INVITE</h1><p>Сиздин өзгөчө күнүңүзгө санарип чакыруу</p></div>
   <div class="container">
@@ -29,7 +27,6 @@
     <div class="tcards" id="templateList"></div>
   </div>
 </div>
-
 <div class="step" id="stepForm">
   <div class="hero"><h1 style="font-size:22px">Чакыруу түзүү</h1></div>
   <div class="container">
@@ -82,7 +79,6 @@
     <button class="btn" onclick="goToPreview()" style="margin-top:15px">👁️ Текшерүү</button>
   </div>
 </div>
-
 <div class="step" id="stepPreview">
   <div class="hero"><h1 style="font-size:22px">👁️ Текшерүү</h1></div>
   <div class="container">
@@ -111,7 +107,6 @@
     <button class="btn outline" onclick="showStep('stepForm')">✏️ Өзгөртүү</button>
   </div>
 </div>
-
 <div class="step" id="stepPayment">
   <div class="hero"><h1 style="font-size:22px">💳 Төлөм</h1></div>
   <div class="container">
@@ -124,7 +119,6 @@
     <button class="btn green" style="margin-top:15px" onclick="confirmPaid()">✅ Мен төлөдүм</button>
   </div>
 </div>
-
 <div class="step" id="stepDone">
   <div class="hero"><div style="font-size:60px">🎉</div><h1 style="font-size:22px">Чакырууңуз даяр!</h1></div>
   <div class="container">
@@ -149,41 +143,35 @@
     <div id="mapDisplay"></div>
     <div id="checkLinkBox"></div>
     <div id="shareBox" style="display:none" class="check-box">
-      <p style="color:var(--green);font-weight:700;margin-bottom:8px">🔗 Чакыруу шилтемеси (конокторго жөнөтүңүз)</p>
+      <p style="color:var(--green);font-weight:700;margin-bottom:8px">🔗 Чакыруу шилтемеси</p>
       <div class="link-box" id="shareLinkText"></div>
-      <button class="btn green" style="font-size:12px;margin-top:8px" onclick="copyShareLink()">📋 Шилтемени көчүрүү</button>
-      <button class="btn" style="font-size:12px;background:#25D366;color:#fff" onclick="shareWhatsApp()">💚 WhatsApp аркылуу жөнөтүү</button>
-      <button class="btn outline" style="font-size:12px" onclick="downloadInviteHtml()">⬇️ HTML файл жүктөө</button>
+      <button class="btn green" style="font-size:12px;margin-top:8px" onclick="copyShareLink()">📋 Көчүрүү</button>
+      <button class="btn" style="font-size:12px;background:#25D366;color:#fff" onclick="shareWhatsApp()">💚 WhatsApp</button>
+      <button class="btn outline" style="font-size:12px" onclick="downloadInviteHtml()">⬇️ HTML</button>
     </div>
     <div id="myInvitesBox" style="margin:15px 0"></div>
     <div class="rsvp-box">
       <h3>📋 Катышууңузду ырастаңыз</h3>
-      <label>Атыңыз</label>
-      <input type="text" id="rsvpName" placeholder="Атыңыз">
-      <label>Канча адам келесиз?</label>
-      <input type="number" id="rsvpGuests" value="1" min="1">
+      <label>Атыңыз</label><input type="text" id="rsvpName" placeholder="Атыңыз">
+      <label>Канча адам?</label><input type="number" id="rsvpGuests" value="1" min="1">
       <button class="rsvp-btn rsvp-yes" onclick="submitRsvp('yes')">✅ Барам</button>
       <button class="rsvp-btn rsvp-maybe" onclick="submitRsvp('maybe')">⏳ Билбейм</button>
       <button class="rsvp-btn rsvp-no" onclick="submitRsvp('no')">❌ Бара албайм</button>
-      <div id="rsvpStatus"></div>
-      <div class="rsvp-list" id="rsvpList"></div>
+      <div id="rsvpStatus"></div><div class="rsvp-list" id="rsvpList"></div>
     </div>
     <div class="wishes-box">
       <h3>💬 Каалоо-тилектер</h3>
-      <label>Атыңыз</label>
-      <input type="text" id="wishName" placeholder="Атыңыз">
-      <label>Тилегиңиз</label>
-      <textarea id="wishText" placeholder="Жаш жубайларга тилегиңиз..."></textarea>
+      <label>Атыңыз</label><input type="text" id="wishName" placeholder="Атыңыз">
+      <label>Тилегиңиз</label><textarea id="wishText" placeholder="Тилегиңиз..."></textarea>
       <button class="btn green" onclick="submitWish()">💌 Жиберүү</button>
       <div id="wishesList" style="margin-top:12px"></div>
     </div>
     <button class="btn outline" onclick="showStep('stepHome')">🏠 Башкы бетке</button>
   </div>
 </div>
-
 <div class="modal" id="rsvpModal"><div class="mbox">
   <button class="close-x" onclick="closeModal('rsvpModal')">×</button>
-  <h3>📋 Катышууңузду ырастаңыз</h3>
+  <h3>📋 Катышуу</h3>
   <div id="rsvpModalInfo" style="background:var(--bg);border-radius:8px;padding:12px;margin-bottom:12px;text-align:center;font-size:13px"></div>
   <label>Атыңыз</label><input type="text" id="rsvpModalName" placeholder="Атыңыз">
   <label>Канча адам?</label><input type="number" id="rsvpModalGuests" value="1" min="1">
@@ -192,34 +180,25 @@
   <button class="rsvp-btn rsvp-no" onclick="submitRsvpModal('no')">❌ Бара албайм</button>
   <div id="rsvpModalStatus" style="text-align:center;margin-top:10px"></div>
 </div></div>
-
 <div class="preview-modal" id="previewModal">
   <div class="preview-content">
     <button class="preview-close" onclick="closePreview()">×</button>
-    <img id="previewImg" src="">
-    <div class="overlay"></div>
+    <img id="previewImg" src=""><div class="overlay"></div>
     <div class="top-text" id="previewTop">ҮЙЛӨНҮҮ ТОЮ</div>
-    <div class="center-text">
-      <div class="names" id="previewNames">Аты & Аты</div>
-      <div class="type-text" id="previewType">ҮЙЛӨНҮҮ ТОЮНА ЧАКЫРУУ</div>
-    </div>
-    <button class="preview-select-btn" onclick="selectFromPreview()">✨ Ушул үлгүнү тандоо</button>
-    <button class="preview-music-btn" id="previewMusicBtn" onclick="togglePreviewMusic()">▶ Музыканы ойнотуу</button>
+    <div class="center-text"><div class="names" id="previewNames">Аты & Аты</div><div class="type-text" id="previewType">ЧАҚЫРУУ</div></div>
+    <button class="preview-select-btn" onclick="selectFromPreview()">✨ Тандоо</button>
+    <button class="preview-music-btn" id="previewMusicBtn" onclick="togglePreviewMusic()">▶ Музыка</button>
   </div>
 </div>
-
 <div class="modal" id="adminLoginModal"><div class="mbox">
   <button class="close-x" onclick="closeModal('adminLoginModal')">×</button>
-  <h3>🔑 Админ кирүү</h3>
-  <p style="color:var(--muted);font-size:12px;text-align:center;margin-bottom:15px">Админ катары кирсеңиз — төлөмсүз чакыруу</p>
+  <h3>🔑 Админ</h3>
   <input type="password" id="adminPass" placeholder="Сырсөз">
   <button class="btn" onclick="checkAdmin()">Кирүү</button>
-  <button class="btn outline" onclick="closeModal('adminLoginModal')">← Артка</button>
 </div></div>
-
 <div class="modal" id="adminPanelModal"><div class="mbox" style="max-width:520px">
   <button class="close-x" onclick="closeModal('adminPanelModal')">×</button>
-  <h3>⚙️ Админ панели</h3>
+  <h3>⚙️ Админ</h3>
   <div class="tabs">
     <div class="tab active" onclick="adminTab('settings')">⚙️</div>
     <div class="tab" onclick="adminTab('templates')">🖼️</div>
@@ -228,62 +207,43 @@
   </div>
   <div class="tab-content active" id="tabSettings">
     <div style="padding:10px;background:var(--bg);border-radius:8px;margin-bottom:8px;font-size:13px"><span style="color:var(--muted)">MBank:</span> <b id="showMbank" style="color:var(--gold)"></b></div>
-    <button class="btn outline" onclick="editMbank()" style="font-size:12px">✏️ MBank өзгөртүү</button>
-    <button class="btn outline" onclick="editTierPrices()" style="font-size:12px">💰 Бааларды өзгөртүү</button>
-    <button class="btn outline" onclick="editPassword()" style="font-size:12px">🔒 Сырсөздү өзгөртүү</button>
-    <button class="btn purple" onclick="closeModal('adminPanelModal');startAdminCreate()" style="font-size:12px">👑 Бекер чакыруу түзүү</button>
-    <button class="btn red" onclick="logoutAdmin()" style="font-size:12px">🚪 Админден чыгуу</button>
-    <button class="btn red" onclick="clearAll()" style="font-size:12px">🗑️ Баарын тазалоо</button>
+    <button class="btn outline" onclick="editMbank()" style="font-size:12px">✏️ MBank</button>
+    <button class="btn outline" onclick="editTierPrices()" style="font-size:12px">💰 Баалар</button>
+    <button class="btn outline" onclick="editPassword()" style="font-size:12px">🔒 Сырсөз</button>
+    <button class="btn purple" onclick="closeModal('adminPanelModal');startAdminCreate()" style="font-size:12px">👑 Бекер</button>
+    <button class="btn red" onclick="logoutAdmin()" style="font-size:12px">🚪 Чыгуу</button>
+    <button class="btn red" onclick="clearAll()" style="font-size:12px">🗑️ Тазалоо</button>
   </div>
-  <div class="tab-content" id="tabTemplates">
-    <button class="btn green" onclick="openTplForm()">+ Жаңы шаблон</button>
-    <div id="tplAdminList" style="margin-top:12px"></div>
-  </div>
-  <div class="tab-content" id="tabPresets">
-    <div class="info-box">💡 28 даяр шаблон</div>
-    <button class="btn purple" onclick="loadPresets()">📦 Топтомду жүктөө</button>
-    <button class="btn red" onclick="clearTemplates()" style="font-size:12px">🗑️ Шаблондорду өчүрүү</button>
-  </div>
+  <div class="tab-content" id="tabTemplates"><button class="btn green" onclick="openTplForm()">+ Шаблон</button><div id="tplAdminList" style="margin-top:12px"></div></div>
+  <div class="tab-content" id="tabPresets"><button class="btn purple" onclick="loadPresets()">📦 Жүктөө</button><button class="btn red" onclick="clearTemplates()" style="font-size:12px">🗑️</button></div>
   <div class="tab-content" id="tabConverter">
-    <label class="file-label" for="convFile">📁 Сүрөт тандоо</label>
+    <label class="file-label" for="convFile">📁 Сүрөт</label>
     <input type="file" id="convFile" accept="image/*" onchange="loadConvFile(event)" style="display:none">
     <img id="convPreview" class="img-preview" src="">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-      <button class="btn blue" onclick="convertTo('image/png','png')">→ PNG</button>
-      <button class="btn blue" onclick="convertTo('image/jpeg','jpg')">→ JPG</button>
-      <button class="btn blue" onclick="convertTo('image/webp','webp')">→ WebP</button>
-    </div>
+    <button class="btn blue" onclick="convertTo('image/png','png')">PNG</button>
   </div>
 </div></div>
-
 <div class="modal" id="tplFormModal"><div class="mbox">
   <button class="close-x" onclick="closeModal('tplFormModal')">×</button>
-  <h3>🖼️ Жаңы шаблон</h3>
-  <label>Аталышы</label><input type="text" id="tfTitle">
+  <h3>🖼️ Шаблон</h3>
+  <label>Аталыш</label><input type="text" id="tfTitle">
   <label>Категория</label><select id="tfCat"></select>
   <label>Сүрөттөмө</label><textarea id="tfDesc"></textarea>
-  <label>✨ Сапат деңгээли</label>
-  <select id="tfTier">
-    <option value="1">🥉 ЭКОНОМ</option>
-    <option value="2">🥈 СТАНДАРТ</option>
-    <option value="3" selected>🥇 ПРЕМИУМ</option>
-    <option value="4">💎 ЛЮКС</option>
-  </select>
-  <label>Баа (авто)</label><input type="number" id="tfPrice" placeholder="Авто">
-  <label>Эски баа</label><input type="number" id="tfOld">
-  <label>Белги</label><input type="text" id="tfBadge">
-  <label class="file-label" for="tfFile">📁 Сүрөт тандоо</label>
+  <select id="tfTier"><option value="1">Эконом</option><option value="2">Стандарт</option><option value="3" selected>Премиум</option><option value="4">Люкс</option></select>
+  <input type="number" id="tfPrice" placeholder="Баа">
+  <input type="number" id="tfOld" placeholder="Эски баа">
+  <input type="text" id="tfBadge" placeholder="Белги">
+  <label class="file-label" for="tfFile">📁 Сүрөт</label>
   <input type="file" id="tfFile" accept="image/*" onchange="previewTplImg(event)" style="display:none">
   <img id="tfImgPreview" class="img-preview" src="">
-  <label>Же сүрөт URL</label><input type="text" id="tfImgUrl" placeholder="https://...jpg">
-  <label>🎵 Музыка URL</label><input type="text" id="tfMusicUrl" placeholder="https://...mp3">
-  <button class="btn green" onclick="saveTplForm()">💾 Сактоо</button>
-  <button class="btn outline" onclick="closeModal('tplFormModal')">← Артка</button>
+  <input type="text" id="tfImgUrl" placeholder="Сүрөт URL">
+  <input type="text" id="tfMusicUrl" placeholder="Музыка URL">
+  <button class="btn green" onclick="saveTplForm()">💾</button>
 </div></div>
-
 <div class="toast" id="toast"></div>
 <footer>© 2024 TILATA INVITE</footer>
-
-<script src="app.js"></script>
+<script src="app_p0.js"></script>
+<script src="app_p1.js"></script>
+<script src="app_p2.js"></script>
 </body>
 </html>
